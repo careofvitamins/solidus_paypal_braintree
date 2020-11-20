@@ -1,10 +1,12 @@
-module SolidusPaypalBraintree
-  module OrdersControllerDecorator
+if SolidusSupport.frontend_available?
+  module SolidusPaypalBraintree
+    module OrdersControllerDecorator
 
-    def self.prepended(base)
-      base.helper ::SolidusPaypalBraintree::BraintreeCheckoutHelper
+      def self.prepended(base)
+        base.helper ::SolidusPaypalBraintree::BraintreeCheckoutHelper
+      end
+
+      ::Spree::OrdersController.prepend(self)
     end
-
-    ::Spree::OrdersController.prepend(self)
   end
 end

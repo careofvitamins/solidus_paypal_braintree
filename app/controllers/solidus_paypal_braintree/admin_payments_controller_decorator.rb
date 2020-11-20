@@ -1,10 +1,12 @@
-module SolidusPaypalBraintree
-  module AdminPaymentsControllerDecorator
+if SolidusSupport.backend_available?
+  module SolidusPaypalBraintree
+    module AdminPaymentsControllerDecorator
 
-    def self.prepended(base)
-      base.helper ::SolidusPaypalBraintree::BraintreeAdminHelper
+      def self.prepended(base)
+        base.helper ::SolidusPaypalBraintree::BraintreeAdminHelper
+      end
+
+      ::Spree::Admin::PaymentsController.prepend(self)
     end
-
-    ::Spree::Admin::PaymentsController.prepend(self)
   end
 end
